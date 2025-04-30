@@ -1,40 +1,55 @@
 import "./styles.css";
-import words from "./words.json";
+import wordsArray from "./words.json"; //get words
 
 //Implement all game mechanics
+//get random array index
+let index = Math.floor(Math.random() * wordsArray.length);
+let randomWord = wordsArray[index];
 
-//get words
-const wordsArray = words;
-
-//Choose a secret word from words.json
-const getRandomWord = () => {
-    //get random array index
-    let index = Math.floor(Math.random() * wordsArray.length);
-    let randomWord = wordsArray[index];
-
-    //for each randomWord.length display character in div
-    for (const element of randomWord) {
-        console.log(element);
-        let div = document.createElement('div');
-        div.innerHTML = "-"; //Hide the secret word with dashes
-        div.setAttribute('class', 'words'); //create class attribute and assign words
-        document.body.appendChild(div); //set the div in body
-    }
+for (const element of randomWord) { //for each randomWord.length display character in div
+    console.log(element);
+    let div = document.createElement('div');
+    div.innerHTML = "-"; //Hide the secret word with dashes
+    div.setAttribute('class', 'words'); //create class attribute and assign words
+    div.id = randomWord.indexOf(element); //set the id of div
+    document.body.appendChild(div); //set the div in body
 
 }
 
-getRandomWord();
+//Limit the number of attempts to 7
+let attempts = 7; //amount of guesses per game
+document.getElementById("attempt").innerHTML = attempts;
 
-//Limit the number of guesses to 7
+const checkIfUserInputMatches = () => {
+    //get character input from user
+    const userGuess = document.getElementById("guess").value.toUpperCase();
 
-let guess = 7; //amount of guesses per game
+    //convert string to array
+    const randomWordArr = randomWord.split("");
 
+    if (randomWordArr.includes(userGuess)) { //if character input is in the randomWord
 
-//for each guess if its in the word, reveal the letters
+        console.log("Contains " + userGuess);
 
-//if not remove one guess
+        //reveal the letters
+    }
+    if (!randomWordArr.includes(userGuess)) { //if character is not in the randomWord
+
+        console.log("Doesnt Contain " + userGuess);
+        attempts--; //remove one attempt
+    }
+
+    //substract one guess
+    console.log(attempts);
+}
+
+const useOneGuess = () => {
+
+    checkIfUserInputMatches()
+
+}
+//event listeners
+document.getElementById("userguess").addEventListener('click', useOneGuess)
+
 
 //if guesses reaches 0 game ends and user is "hanged"
-
-
-console.log("test");

@@ -2,8 +2,14 @@ body {
   font-family: sans-serif;
 }
 .words {
-  padding: 2px;
+  padding: 4px;
   display: inline-block;
   font-weight: bold;
   font-size: 36px;
+}
+.guessContainer {
+  display: flex;
+}
+.guessContainer h2 {
+  padding: 4px;
 }
