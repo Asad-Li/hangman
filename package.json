@@ -4,6 +4,7 @@
   "description": "The JavaScript template",
   "scripts": {
     "start": "parcel ./src/index.html",
+    "copy-img": "cp -v -R ./src/assets ./dist",
     "build": "parcel build ./src/index.html"
   },
   "devDependencies": {

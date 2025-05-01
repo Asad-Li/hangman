@@ -5,6 +5,8 @@ import wordsArray from "./words.json"; //get words
 let random = Math.floor(Math.random() * wordsArray.length); //get random array index
 let randomWord = wordsArray[random];
 const randomWordArr = randomWord.split("");
+let attempts = 7; //amount of guesses per game
+document.getElementById("attempt").innerHTML = attempts;
 
 randomWordArr.forEach((element, index) => {
     let div = document.createElement('div');
@@ -14,34 +16,36 @@ randomWordArr.forEach((element, index) => {
     div.id = index;
 });
 
-//Limit the number of attempts to 7
-let attempts = 7; //amount of guesses per game
-document.getElementById("attempt").innerHTML = attempts;
-
 const checkIfUserInputMatches = () => {
     //get character input from user
     const userGuess = document.getElementById("guess").value.toUpperCase();
-    //convert string to array
-
-    randomWordArr.forEach((element, index) => {
-
-        if (element === userGuess) {
-            document.getElementById(`${index}`).innerHTML = element;
-        }
-        else {
-            attempts--;
-        }
-
-    });
+    if (randomWord.includes(userGuess)) {
+        randomWordArr.forEach((element, index) => {
+            if (element === userGuess) {
+                document.getElementById(`${index}`).innerHTML = element;
+            }
+        });
+    }
+    else {
+        --attempts;
+        document.getElementById("attempt").innerHTML = attempts;
+        console.log(attempts);
+        // for (let i = 0; i > attempts; i--) {
+        //     document.getElementById("hangman").src=`/assets/${i}.png`;
+        // }
+    }
 }
 
 const useOneGuess = () => {
-
     checkIfUserInputMatches()
 
+    if (attempts <= 0) {
+        console.log('hanged')
+    }
 }
+
 //event listeners
 document.getElementById("userguess").addEventListener('click', useOneGuess)
 
 console.log(randomWord);
-//if guesses reaches 0 game ends and user is "hanged"
+
