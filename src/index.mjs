@@ -5,7 +5,7 @@ import wordsArray from "./words.json"; //get words
 let random = Math.floor(Math.random() * wordsArray.length); //get random array index
 let randomWord = wordsArray[random];
 const randomWordArr = randomWord.split("");
-let attempts = 7; //amount of guesses per game
+let attempts = 6; //amount of guesses per game
 document.getElementById("attempt").innerHTML = attempts;
 
 randomWordArr.forEach((element, index) => {
@@ -29,25 +29,36 @@ const checkIfUserInputMatches = () => {
     else {
         --attempts;
         document.getElementById("attempt").innerHTML = attempts;
-        let image = 7 //set to number of images in assets
+        let image = 6 //set to number of images in assets
         for (let i = 0; i < attempts; i++) {
             image-- //remove count from images to reverse render order
             document.getElementById("hangman").src=`/assets/${image}.png`;
         }
-        console.log(image)
     }
 }
 
 const useOneGuess = () => {
     checkIfUserInputMatches()
-
-    if (attempts <= 1) {
+    if (attempts < 1) {
         console.log('hanged')
+        document.getElementById("hangman").src=`/assets/6.png`;
     }
 }
 
+const winGame = () => {
+
+    //when randomword is revealed
+
+    //render message "you won!"
+
+}
+
+
+
 //event listeners
 document.getElementById("userguess").addEventListener('click', useOneGuess)
+//add eventlistener when randomword is revealed run winGame
+//add eventlistener when attempts = 0  run loseGame
 
 console.log(randomWord);
 
