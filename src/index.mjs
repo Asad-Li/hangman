@@ -23,6 +23,7 @@ encryptWord();
 const checkIfUserInputMatches = () => {
     //get character input from user
     const userGuess = document.getElementById("guess").value.toUpperCase();
+
     if (randomWord.includes(userGuess)) {
         randomWordArr.forEach((element, index) => {
             if (element === userGuess) {
@@ -40,6 +41,9 @@ const checkIfUserInputMatches = () => {
             image-- //remove count from images to reverse render order
             document.getElementById("hangman").src=`/assets/${image}.png`;
         }
+        document.body.appendChild()
+        // let wrongLetters = document.getElementById("guessedLetters");
+        // wrongLetters.appendChild(wrongLetters).innerHTML = userGuess; //Hide the secret word with dashes
     }
 
 }

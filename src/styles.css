@@ -13,3 +13,10 @@ body {
 .guessContainer h2 {
   padding: 4px;
 }
+.guessedLetters {
+  display: flex;
+}
+.guessedLetters h3 {
+  padding: 5px;
+  color: red;
+}
