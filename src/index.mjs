@@ -49,10 +49,22 @@ const useOneGuess = () => {
     if (attempts < 1) {
         document.getElementById("hangman").src=`/assets/6.png`;
         loseGame()
+        disableButton()
     }
     if (userGuessArr.toString() === randomWordArr.toString()) {
         winGame();
+        disableButton()
     }
+}
+
+const disableButton = () => {
+    const button = document.getElementById('userguess');
+    button.disabled = true;
+}
+
+const enableButton = () => {
+    const button = document.getElementById('userguess');
+    button.disabled = false;
 }
 
 const winGame = () => {
@@ -92,6 +104,7 @@ const reloadGame = () => {
     userGuessArr = [];
     attempts = 6;
     encryptWord();
+    enableButton();
     console.log(randomWord);
 }
 
