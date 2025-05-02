@@ -29,17 +29,19 @@ const checkIfUserInputMatches = () => {
     else {
         --attempts;
         document.getElementById("attempt").innerHTML = attempts;
-        console.log(attempts);
-        // for (let i = 0; i > attempts; i--) {
-        //     document.getElementById("hangman").src=`/assets/${i}.png`;
-        // }
+        let image = 7 //set to number of images in assets
+        for (let i = 0; i < attempts; i++) {
+            image-- //remove count from images to reverse render order
+            document.getElementById("hangman").src=`/assets/${image}.png`;
+        }
+        console.log(image)
     }
 }
 
 const useOneGuess = () => {
     checkIfUserInputMatches()
 
-    if (attempts <= 0) {
+    if (attempts <= 1) {
         console.log('hanged')
     }
 }
