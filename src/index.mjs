@@ -5,6 +5,7 @@ import wordsArray from "./words.json"; //get words
 let random = Math.floor(Math.random() * wordsArray.length); //get random array index
 let randomWord = wordsArray[random];
 const randomWordArr = randomWord.split("");
+let userGuessArr = [];
 let attempts = 6; //amount of guesses per game
 document.getElementById("attempt").innerHTML = attempts;
 
@@ -19,9 +20,12 @@ randomWordArr.forEach((element, index) => {
 const checkIfUserInputMatches = () => {
     //get character input from user
     const userGuess = document.getElementById("guess").value.toUpperCase();
+    console.log(userGuess ,userGuessArr);
     if (randomWord.includes(userGuess)) {
         randomWordArr.forEach((element, index) => {
             if (element === userGuess) {
+                userGuessArr.push(userGuess);
+                userGuessArr = randomWordArr.filter(value => userGuessArr.includes(value)); //sort userGuessArr
                 document.getElementById(`${index}`).innerHTML = element;
             }
         });
@@ -35,6 +39,7 @@ const checkIfUserInputMatches = () => {
             document.getElementById("hangman").src=`/assets/${image}.png`;
         }
     }
+
 }
 
 const useOneGuess = () => {
@@ -42,23 +47,38 @@ const useOneGuess = () => {
     if (attempts < 1) {
         console.log('hanged')
         document.getElementById("hangman").src=`/assets/6.png`;
+        loseGame()
+    }
+    console.log('these are the arrays im testing', userGuessArr, randomWordArr);
+    if (userGuessArr.toString() === randomWordArr.toString()) {
+        winGame();
     }
 }
 
 const winGame = () => {
+    const win = document.createElement('h1');
+    win.innerHTML = "YOU WON";
+    win.style.color = "green"
+    document.body.prepend(win);
 
-    //when randomword is revealed
-
-    //render message "you won!"
-
+    //reset game
 }
 
+const loseGame = () => {
+    const lose = document.createElement('h1');
+    lose.innerHTML = "YOU LOSE";
+    lose.style.color = "red"
+    document.body.prepend(lose);
+    //loop over array and set characters
+    randomWordArr.forEach((element, index) => {
+        document.getElementById(`${index}`).innerHTML = element;
+    });
 
+    //reset the game
+}
 
 //event listeners
 document.getElementById("userguess").addEventListener('click', useOneGuess)
-//add eventlistener when randomword is revealed run winGame
-//add eventlistener when attempts = 0  run loseGame
 
 console.log(randomWord);
 
