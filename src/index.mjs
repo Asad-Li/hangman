@@ -10,6 +10,7 @@ let randomWordArr = randomWord.split("");
 let userGuessArr = [];
 let attempts = 6; //amount of guesses per game
 let canPlay = true;
+let logAllInputs = [];
 
 const encryptWord = () => {
     document.getElementById("attempt").innerHTML = attempts;
@@ -25,6 +26,17 @@ encryptWord();
 
 const checkIfUserInputMatches = (userGuess) => {
 
+    if (logAllInputs.includes(userGuess) === true) {
+        return
+    }
+
+    logAllInputs.push(userGuess);
+
+    //get keyboard input and add class 'disabledBtn'
+    let selectElement = document.querySelector(`div[data-skbtn=${userGuess.toLowerCase()}]`);
+    selectElement.classList.add("disabledBtn")
+
+    console.log(selectElement);
     if (randomWord.includes(userGuess)) {
         randomWordArr.forEach((element, index) => {
             if (element === userGuess) {
@@ -42,14 +54,14 @@ const checkIfUserInputMatches = (userGuess) => {
             image-- //remove count from images to reverse render order
             document.getElementById("hangman").src=`/assets/${image}.png`;
         }
-        console.log(userGuess);
-        let guessedContainer = document.getElementsByClassName("guessedLetters")[0];
-        let guessedLetters = document.createElement("h2")
-        guessedLetters.setAttribute('class', 'individualGuess'); //create class attribute and assign words
-        guessedLetters.innerHTML = userGuess;
-        guessedContainer.appendChild(guessedLetters)
+        console.log(userGuess, userGuessArr, randomWordArr);
     }
 
+    let guessedContainer = document.getElementsByClassName("guessedLetters")[0];
+    let guessedLetters = document.createElement("h2")
+    guessedLetters.setAttribute('class', 'individualGuess'); //create class attribute and assign words
+    guessedLetters.innerHTML = userGuess;
+    guessedContainer.appendChild(guessedLetters)
 }
 
 const useOneGuess = (userGuess) => {
@@ -111,6 +123,7 @@ const reloadGame = () => {
     encryptWord();
     console.log(randomWord);
 }
+
 const keyboard = new Keyboard({
     onKeyPress: button =>  {
         if (canPlay === false) {
