@@ -2,6 +2,10 @@ import "./styles.css";
 import wordsArray from "./words.json"; //get words
 import Keyboard from 'simple-keyboard';
 import 'simple-keyboard/build/css/index.css';
+// const express = require('express')
+// const app = express()
+// const port = 1234
+
 
 //Implement all game mechanics
 let random = Math.floor(Math.random() * wordsArray.length); //get random array index
@@ -33,6 +37,7 @@ const checkIfUserInputMatches = (userGuess) => {
     logAllInputs.push(userGuess);
 
     //get keyboard input and add class 'disabledBtn'
+    // https://stackoverflow.com/questions/15148659/how-can-i-use-queryselector-on-to-pick-an-input-element-by-name
     let selectElement = document.querySelector(`div[data-skbtn=${userGuess.toLowerCase()}]`);
     selectElement.classList.add("disabledBtn")
 
@@ -74,8 +79,16 @@ const useOneGuess = (userGuess) => {
         if (userGuessArr.toString() === randomWordArr.toString()) {
             canPlay = false;
             winGame();
+
+            // if (!canPlay) {
+            //     // promptMessage()
+            // }
         }
 }
+
+// const promptMessage = () => {
+//     prompt('Enter username')
+// }
 
 const winGame = () => {
     let win = document.createElement('h2');
@@ -110,8 +123,11 @@ const reloadGame = () => {
         let div = document.getElementById(`${index}`);
         div.parentNode.removeChild(div);
     });
-
+    document.querySelectorAll('div[data-skbtn]').forEach(element => {
+        element.classList.remove('disabledBtn');
+    });
     randomWordArr = [];
+    logAllInputs = [];
     randomWord = "";
     random = 0;
     random = Math.floor(Math.random() * wordsArray.length); //get random array index
@@ -148,7 +164,27 @@ function onKeyPress(button){
     useOneGuess(button.toUpperCase());
 }
 
+// async function getData() {
+//     const url = "http://localhost:3000";
+//     try {
+//         const response = await fetch(url);
+//         if (!response.ok) {
+//             throw new Error(`Response status: ${response.status}`);
+//         }
+//
+//         const json = await response.json();
+//         console.log(json);
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// }
+
+// getData()
+
 document.getElementById("reload").addEventListener('click', reloadGame)
 
 console.log(randomWord);
 
+// app.listen(port, () => {
+//     console.log(`Example app listening on port ${port}`)
+// })
