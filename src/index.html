@@ -3,13 +3,31 @@
   <head>
     <title>JavaScript Sandbox</title>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="styles.css">
   </head>
 
   <body>
     <div id="app">
       <h1>Hangman</h1>
     </div>
+    <div class="simple-keyboard"></div>
+    <div class="guessedLetters" id="guessedLetters">
+      <h2>Guessed letters:</h2>
+    </div>
+    <div>
+       <img alt="hangman_alt" id="hangman" src="assets/0.png"/>
+    </div>
+    <div>
+    </div>
+    <div>
+      <button id="reload">Reload</button>
+    </div>
+    <div class="guessContainer">
+      <h2>Remaining Attempts:</h2>
+      <h2 id="attempt"></h2>
+    </div>
 
-    <script src="./index.mjs" type="module"></script>
+    <script src="./index.mjs" type="module">
+    </script>
   </body>
 </html>
